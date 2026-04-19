@@ -1,6 +1,6 @@
 # Step 1: Feature Selection & QA Justification
-**NopCommerce Automation Assignment**  
-**Date:** April 2026 | **Site:** https://demo.nopcommerce.com/
+**NopCommerce Automation **  
+**Site:** https://demo.nopcommerce.com/
 
 ---
 
