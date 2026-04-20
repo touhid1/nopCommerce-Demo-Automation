@@ -1,6 +1,5 @@
 # Step 2: Test Case Definition
 **NopCommerce Automation Assignment**  
-**8 Features × 3 Scenario Types = 24+ Test Cases**
 
 ---
 
@@ -487,4 +486,4 @@
 | Currency/Language | TC_LANGUAGE_001 | Happy Path | Medium | PASS |
 | Currency/Language | TC_LOCALIZATION_001 | Edge Case | Low-Med | PASS |
 
-**Total Test Cases: 32+** (exceeds 24 minimum requirement)
+**Total Test Cases: 33** 
