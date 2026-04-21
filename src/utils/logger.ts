@@ -28,9 +28,9 @@ export class Logger {
   }
 
   header(message: string): void {
-    console.log('\n' + '='.repeat(60));
+    console.log("\n" + "=".repeat(60));
     console.log(`  ${message}`);
-    console.log('='.repeat(60) + '\n');
+    console.log("=".repeat(60) + "\n");
   }
 
   section(message: string): void {
