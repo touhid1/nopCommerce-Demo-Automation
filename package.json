@@ -1,0 +1,20 @@
+{
+  "name": "demo-web-shop",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/touhid1/DemoWebShop-Automation#readme",
+  "bugs": {
+    "url": "https://github.com/touhid1/DemoWebShop-Automation/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touhid1/DemoWebShop-Automation.git"
+  },
+  "license": "ISC",
+  "author": "Md Touhedul islam",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
