@@ -1,4 +1,4 @@
-# STEP 2: TEST CASE DEFINITION (80 Marks)
+# STEP 2: TEST CASE DEFINITION 
 
 ## DemoWebShop - Complete Test Case Specifications
 
