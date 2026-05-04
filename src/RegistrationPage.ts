@@ -1,5 +1,5 @@
-import { Page } from '@playwright/test';
-import { BasePage } from './BasePage';
+import { Page } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
 export class RegistrationPage extends BasePage {
   private readonly FIRST_NAME_INPUT = 'input[id="FirstName"]';
@@ -14,21 +14,24 @@ export class RegistrationPage extends BasePage {
   private readonly PASSWORD_INPUT = 'input[id="Password"]';
   private readonly CONFIRM_PASSWORD_INPUT = 'input[id="ConfirmPassword"]';
   private readonly REGISTER_BUTTON = 'input[type="submit"][value="Register"]';
-  private readonly ERROR_MESSAGE = '.message-error, .field-validation-error';
-  private readonly SUCCESS_MESSAGE = '.result';
-  private readonly REGISTRATION_FORM = '.register-page';
+  private readonly ERROR_MESSAGE = ".message-error, .field-validation-error";
+  private readonly SUCCESS_MESSAGE = ".result";
+  private readonly REGISTRATION_FORM = ".register-page";
 
   constructor(page: Page) {
     super(page);
   }
 
   async navigateToRegistration(): Promise<void> {
-    await this.navigate('register');
+    await this.navigate("register");
     await this.waitForElement(this.REGISTRATION_FORM);
-    console.log('[INFO] Navigated to registration page');
+    console.log("[INFO] Navigated to registration page");
   }
 
-  async fillPersonalDetails(firstName: string, lastName: string): Promise<void> {
+  async fillPersonalDetails(
+    firstName: string,
+    lastName: string,
+  ): Promise<void> {
     await this.fill(this.FIRST_NAME_INPUT, firstName);
     await this.fill(this.LAST_NAME_INPUT, lastName);
   }
@@ -39,7 +42,7 @@ export class RegistrationPage extends BasePage {
     city: string,
     state: string,
     zipCode: string,
-    country: string = 'United States'
+    country: string = "United States",
   ): Promise<void> {
     await this.fill(this.COMPANY_INPUT, company);
     await this.fill(this.STREET_ADDRESS_INPUT, street);
@@ -49,7 +52,11 @@ export class RegistrationPage extends BasePage {
     await this.fill(this.ZIP_CODE_INPUT, zipCode);
   }
 
-  async fillPasswordDetails(email: string, password: string, confirmPassword: string): Promise<void> {
+  async fillPasswordDetails(
+    email: string,
+    password: string,
+    confirmPassword: string,
+  ): Promise<void> {
     await this.fill(this.EMAIL_INPUT, email);
     await this.fill(this.PASSWORD_INPUT, password);
     await this.fill(this.CONFIRM_PASSWORD_INPUT, confirmPassword);
@@ -70,11 +77,18 @@ export class RegistrationPage extends BasePage {
     city: string,
     state: string,
     zipCode: string,
-    country: string = 'United States'
+    country: string = "United States",
   ): Promise<void> {
     await this.navigateToRegistration();
     await this.fillPersonalDetails(firstName, lastName);
-    await this.fillAddressDetails(company, street, city, state, zipCode, country);
+    await this.fillAddressDetails(
+      company,
+      street,
+      city,
+      state,
+      zipCode,
+      country,
+    );
     await this.fillPasswordDetails(email, password, password);
     await this.submitRegistration();
   }
@@ -100,7 +114,7 @@ export class RegistrationPage extends BasePage {
   async isRegistrationSuccessful(): Promise<boolean> {
     try {
       const text = await this.getText(this.SUCCESS_MESSAGE);
-      return text?.toLowerCase().includes('success') || false;
+      return text?.toLowerCase().includes("success") || false;
     } catch {
       return false;
     }
