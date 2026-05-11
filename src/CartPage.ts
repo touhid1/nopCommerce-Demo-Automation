@@ -1,5 +1,5 @@
-import { Page } from '@playwright/test';
-import { BasePage } from './BasePage';
+import { Page } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
 /**
  * CartPage Object
@@ -7,18 +7,18 @@ import { BasePage } from './BasePage';
  */
 export class CartPage extends BasePage {
   // Selectors
-  private readonly CART_ITEM = 'tr.cart-item-row';
-  private readonly ITEM_NAME = 'td:nth-child(2)';
+  private readonly CART_ITEM = "tr.cart-item-row";
+  private readonly ITEM_NAME = "td:nth-child(2)";
   private readonly ITEM_QUANTITY = 'input[class="qty-input"]';
-  private readonly ITEM_PRICE = 'td:nth-child(4)';
+  private readonly ITEM_PRICE = "td:nth-child(4)";
   private readonly ITEM_REMOVE_BUTTON = 'input[class="remove-btn"]';
-  private readonly CART_SUBTOTAL = '.order-subtotal';
-  private readonly CART_SHIPPING = '.shipping-cost';
-  private readonly CART_TAX = '.tax-total';
-  private readonly CART_TOTAL = '.total-price';
+  private readonly CART_SUBTOTAL = ".order-subtotal";
+  private readonly CART_SHIPPING = ".shipping-cost";
+  private readonly CART_TAX = ".tax-total";
+  private readonly CART_TOTAL = ".total-price";
   private readonly CHECKOUT_BUTTON = 'input[value="Checkout"]';
   private readonly CONTINUE_SHOPPING = 'input[value="Continue Shopping"]';
-  private readonly EMPTY_CART_MESSAGE = '.no-data';
+  private readonly EMPTY_CART_MESSAGE = ".no-data";
   private readonly UPDATE_CART_BUTTON = 'input[value="Update shopping cart"]';
 
   constructor(page: Page) {
@@ -29,9 +29,9 @@ export class CartPage extends BasePage {
    * Navigate to cart
    */
   async navigateToCart(): Promise<void> {
-    await this.navigate('cart');
+    await this.navigate("cart");
     await this.waitForPageLoad();
-    console.log('[INFO] Navigated to cart');
+    console.log("[INFO] Navigated to cart");
   }
 
   /**
@@ -49,8 +49,11 @@ export class CartPage extends BasePage {
   /**
    * Get all cart items
    */
-  async getAllCartItems(): Promise<Array<{ name: string; quantity: number; price: string }>> {
-    const itemsData: Array<{ name: string; quantity: number; price: string }> = [];
+  async getAllCartItems(): Promise<
+    Array<{ name: string; quantity: number; price: string }>
+  > {
+    const itemsData: Array<{ name: string; quantity: number; price: string }> =
+      [];
     const items = await this.page.locator(this.CART_ITEM).all();
 
     for (const item of items) {
@@ -63,7 +66,7 @@ export class CartPage extends BasePage {
           itemsData.push({
             name: nameElem.trim(),
             quantity: qtyElem ? parseInt(qtyElem) : 1,
-            price: priceElem?.trim() || '0',
+            price: priceElem?.trim() || "0",
           });
         }
       } catch (error) {
@@ -77,7 +80,10 @@ export class CartPage extends BasePage {
   /**
    * Update item quantity
    */
-  async updateItemQuantity(productName: string, newQuantity: number): Promise<boolean> {
+  async updateItemQuantity(
+    productName: string,
+    newQuantity: number,
+  ): Promise<boolean> {
     const items = await this.page.locator(this.CART_ITEM).all();
 
     for (const item of items) {
@@ -86,12 +92,14 @@ export class CartPage extends BasePage {
         const qtyInput = await item.locator(this.ITEM_QUANTITY);
         if (qtyInput) {
           await qtyInput.fill(String(newQuantity));
-          
+
           if (await this.isVisible(this.UPDATE_CART_BUTTON)) {
             await this.click(this.UPDATE_CART_BUTTON);
             await this.waitForPageLoad();
           }
-          console.log(`[INFO] Updated ${productName} quantity to ${newQuantity}`);
+          console.log(
+            `[INFO] Updated ${productName} quantity to ${newQuantity}`,
+          );
           return true;
         }
       }
@@ -128,7 +136,7 @@ export class CartPage extends BasePage {
   async getCartSubtotal(): Promise<number> {
     try {
       const subtotalText = await this.getText(this.CART_SUBTOTAL);
-      return this._extractPrice(subtotalText || '0');
+      return this._extractPrice(subtotalText || "0");
     } catch {
       return 0;
     }
@@ -140,7 +148,7 @@ export class CartPage extends BasePage {
   async getCartShipping(): Promise<number> {
     try {
       const shippingText = await this.getText(this.CART_SHIPPING);
-      return this._extractPrice(shippingText || '0');
+      return this._extractPrice(shippingText || "0");
     } catch {
       return 0;
     }
@@ -152,7 +160,7 @@ export class CartPage extends BasePage {
   async getCartTax(): Promise<number> {
     try {
       const taxText = await this.getText(this.CART_TAX);
-      return this._extractPrice(taxText || '0');
+      return this._extractPrice(taxText || "0");
     } catch {
       return 0;
     }
@@ -164,7 +172,7 @@ export class CartPage extends BasePage {
   async getCartTotal(): Promise<number> {
     try {
       const totalText = await this.getText(this.CART_TOTAL);
-      return this._extractPrice(totalText || '0');
+      return this._extractPrice(totalText || "0");
     } catch {
       return 0;
     }
@@ -195,7 +203,7 @@ export class CartPage extends BasePage {
   async proceedToCheckout(): Promise<void> {
     await this.click(this.CHECKOUT_BUTTON);
     await this.waitForPageLoad();
-    console.log('[INFO] Proceeded to checkout');
+    console.log("[INFO] Proceeded to checkout");
   }
 
   /**
@@ -217,7 +225,7 @@ export class CartPage extends BasePage {
    * Extract price from text
    */
   private _extractPrice(priceText: string): number {
-    const match = priceText.replace(/,/g, '').match(/\d+\.?\d*/);
+    const match = priceText.replace(/,/g, "").match(/\d+\.?\d*/);
     return match ? parseFloat(match[0]) : 0;
   }
 }

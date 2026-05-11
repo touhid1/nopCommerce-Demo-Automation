@@ -1,5 +1,5 @@
-import { Page } from '@playwright/test';
-import { BasePage } from './BasePage';
+import { Page } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
 /**
  * SearchPage Object
@@ -9,17 +9,17 @@ export class SearchPage extends BasePage {
   // Selectors
   private readonly SEARCH_INPUT = 'input[id="q"]';
   private readonly SEARCH_BUTTON = 'button[type="submit"]';
-  private readonly PRODUCT_ITEM = '.product-item';
-  private readonly PRODUCT_NAME = '.product-title';
-  private readonly PRODUCT_PRICE = '.product-price';
-  private readonly NO_RESULTS_MESSAGE = '.no-result';
+  private readonly PRODUCT_ITEM = ".product-item";
+  private readonly PRODUCT_NAME = ".product-title";
+  private readonly PRODUCT_PRICE = ".product-price";
+  private readonly NO_RESULTS_MESSAGE = ".no-result";
   private readonly PRICE_MIN_INPUT = 'input[id="PriceMin"]';
   private readonly PRICE_MAX_INPUT = 'input[id="PriceMax"]';
   private readonly FILTER_BUTTON = 'input[type="submit"][value="Filter"]';
   private readonly SORT_DROPDOWN = 'select[id="products-orderby"]';
-  private readonly PAGINATION_NEXT = '.next-page';
-  private readonly PAGINATION_PREVIOUS = '.previous-page';
-  private readonly PRODUCT_COUNT = '.product-filters span';
+  private readonly PAGINATION_NEXT = ".next-page";
+  private readonly PAGINATION_PREVIOUS = ".previous-page";
+  private readonly PRODUCT_COUNT = ".product-filters span";
 
   constructor(page: Page) {
     super(page);
@@ -29,7 +29,7 @@ export class SearchPage extends BasePage {
    * Navigate to search page
    */
   async navigateToSearch(): Promise<void> {
-    await this.navigate('search');
+    await this.navigate("search");
     await this.waitForPageLoad();
   }
 
@@ -132,7 +132,7 @@ export class SearchPage extends BasePage {
     if (await this.isVisible(this.PAGINATION_NEXT)) {
       await this.click(this.PAGINATION_NEXT);
       await this.waitForPageLoad();
-      console.log('[INFO] Moved to next page');
+      console.log("[INFO] Moved to next page");
     }
   }
 
@@ -143,7 +143,7 @@ export class SearchPage extends BasePage {
     if (await this.isVisible(this.PAGINATION_PREVIOUS)) {
       await this.click(this.PAGINATION_PREVIOUS);
       await this.waitForPageLoad();
-      console.log('[INFO] Moved to previous page');
+      console.log("[INFO] Moved to previous page");
     }
   }
 
@@ -152,8 +152,8 @@ export class SearchPage extends BasePage {
    */
   async verifyProductsContainSearchTerm(searchTerm: string): Promise<boolean> {
     const products = await this.getAllProductNames();
-    return products.every(product => 
-      product.toLowerCase().includes(searchTerm.toLowerCase())
+    return products.every((product) =>
+      product.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }
 
@@ -161,7 +161,7 @@ export class SearchPage extends BasePage {
    * Extract price from text
    */
   private _extractPrice(priceText: string): number {
-    const match = priceText.replace(/,/g, '').match(/\d+\.?\d*/);
+    const match = priceText.replace(/,/g, "").match(/\d+\.?\d*/);
     return match ? parseFloat(match[0]) : 0;
   }
 }

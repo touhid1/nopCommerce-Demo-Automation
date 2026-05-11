@@ -1,5 +1,5 @@
-import { Page } from '@playwright/test';
-import { BasePage } from './BasePage';
+import { Page } from "@playwright/test";
+import { BasePage } from "./BasePage";
 
 /**
  * ProductPage Object
@@ -7,17 +7,17 @@ import { BasePage } from './BasePage';
  */
 export class ProductPage extends BasePage {
   // Selectors
-  private readonly PRODUCT_NAME = 'h1';
-  private readonly PRODUCT_PRICE = '.product-price';
-  private readonly PRODUCT_DESCRIPTION = '.full-description';
+  private readonly PRODUCT_NAME = "h1";
+  private readonly PRODUCT_PRICE = ".product-price";
+  private readonly PRODUCT_DESCRIPTION = ".full-description";
   private readonly QUANTITY_INPUT = 'input[id="product_quantity_"]';
   private readonly ADD_TO_CART_BUTTON = 'input[id="add-to-cart-button-"]';
-  private readonly OUT_OF_STOCK_LABEL = '.out-of-stock';
-  private readonly IN_STOCK_LABEL = '.in-stock';
+  private readonly OUT_OF_STOCK_LABEL = ".out-of-stock";
+  private readonly IN_STOCK_LABEL = ".in-stock";
   private readonly WISHLIST_BUTTON = 'input[id="add-to-wishlist-button-"]';
   private readonly COMPARE_BUTTON = 'input[id="add-to-compare-list-button-"]';
-  private readonly PRODUCT_RATING = '.product-rating';
-  private readonly REVIEWS_SECTION = '.product-reviews';
+  private readonly PRODUCT_RATING = ".product-rating";
+  private readonly REVIEWS_SECTION = ".product-reviews";
 
   constructor(page: Page) {
     super(page);
@@ -44,7 +44,7 @@ export class ProductPage extends BasePage {
    */
   async getProductPrice(): Promise<number> {
     const priceText = await this.getText(this.PRODUCT_PRICE);
-    return this._extractPrice(priceText || '0');
+    return this._extractPrice(priceText || "0");
   }
 
   /**
@@ -80,7 +80,7 @@ export class ProductPage extends BasePage {
   async clickAddToCart(): Promise<void> {
     const isEnabled = await this.isEnabled(this.ADD_TO_CART_BUTTON);
     if (!isEnabled) {
-      console.log('[WARN] Add to cart button is disabled');
+      console.log("[WARN] Add to cart button is disabled");
       return;
     }
     await this.click(this.ADD_TO_CART_BUTTON);
@@ -122,7 +122,7 @@ export class ProductPage extends BasePage {
    */
   async addToWishlist(): Promise<void> {
     await this.click(this.WISHLIST_BUTTON);
-    console.log('[INFO] Added to wishlist');
+    console.log("[INFO] Added to wishlist");
   }
 
   /**
@@ -130,7 +130,7 @@ export class ProductPage extends BasePage {
    */
   async addToComparison(): Promise<void> {
     await this.click(this.COMPARE_BUTTON);
-    console.log('[INFO] Added to comparison');
+    console.log("[INFO] Added to comparison");
   }
 
   /**
@@ -151,7 +151,7 @@ export class ProductPage extends BasePage {
    * Extract price from text
    */
   private _extractPrice(priceText: string): number {
-    const match = priceText.replace(/,/g, '').match(/\d+\.?\d*/);
+    const match = priceText.replace(/,/g, "").match(/\d+\.?\d*/);
     return match ? parseFloat(match[0]) : 0;
   }
 }
